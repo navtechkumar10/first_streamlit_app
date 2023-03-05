@@ -14,6 +14,9 @@ my_fruit_list = pandas.read_csv("https://uni-lab-files.s3.us-west-2.amazonaws.co
 my_fruit_list = my_fruit_list.set_index('Fruit')
 
 # Let's put a pick list here so they can pick the fruit they want to include 
-streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index),['Avocado','Strawberries'])
+selected_fruits = streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index),['Avocado','Strawberries'])
+ 
+# Filter the DataFrame based on the selected fruits
+filtered_fruit_list = my_fruit_list[my_fruit_list['Fruit'].isin(selected_fruits)]
 
-streamlit.dataframe(my_fruit_list)
+streamlit.dataframe(filtered_fruit_list)
